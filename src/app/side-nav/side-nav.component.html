@@ -1,0 +1,21 @@
+<div class="sidenav">
+  <ul class="sidebar-menu">
+    <li class="sidebar-menu-list" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a
+        routerLink="/" (click)="hideSubList()"> <i class="fas fa-server"></i> Server Config</a></li>
+    <li class="sidebar-menu-list" routerLinkActive="active"><a routerLink="/scheduler" (click)="hideSubList()"><i
+          class="fas fa-clipboard-list"></i> Batch Scheduler</a></li>
+    <li class="sidebar-menu-list" routerLinkActive="active"><a routerLink="/batch-status" (click)="hideSubList()"><i
+          class="fas fa-battery-three-quarters"></i> Batch Status</a></li>
+    <li class="sidebar-menu-list" routerLinkActive="active"><a routerLink="/org-config" (click)="showSubListMenu()"><i
+          class="fas fa-sitemap"></i> Org Config</a>
+      <ul class="sidebar-sub-menu" *ngIf="_commonServices.showSubList">
+        <li routerLinkActive="active" [ngClass]="{'active': _commonServices.markActive === true}"><a
+            routerLink="/org-config/new"><i class="fas fa-plus-square"></i>Add/Update Entity</a></li>
+        <li routerLinkActive="active"><a routerLink="/org-config/existing-list" (click)="removeActive()"><i
+              class="fas fa-list"></i> Existing</a></li>
+      </ul>
+    </li>
+    <li class="sidebar-menu-list" routerLinkActive="active"><a routerLink="/mail-config" (click)="hideSubList()"><i
+          class="fas fa-mail-bulk"></i> Mail Config</a></li>
+  </ul>
+</div>

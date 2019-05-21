@@ -1,0 +1,88 @@
+<h1>Organization Configuration</h1>
+<div class="box">
+  <h3 class="box-title">Add Location Information</h3>
+  <div class="box-body submit-server-config">
+    <div class="row">
+      <div class="col-6 server-config-section">
+        <div class="row">
+          <label class="col-4 control-label">Org Name</label>
+          <div class="col-8">
+            <input type="text" [(ngModel)]="requestParam.Org_Name" class="form-control" placeholder="Organization Name">
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-4 control-label">Short Name</label>
+          <div class="col-8">
+            <input type="text" [(ngModel)]="requestParam.Short_Name" class="form-control" placeholder="Short Name">
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-4 control-label">Description</label>
+          <div class="col-8">
+            <input type="text" [(ngModel)]="requestParam.Desc" class="form-control"
+              placeholder="description of the location">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div style="margin-bottom: 0"> -->
+  <h3 class="box-title">Address Info</h3>
+  <div class="box-body submit-server-config">
+    <div class="col-6 server-config-section">
+      <div class="row">
+        <label class="col-4 control-label">Country</label>
+        <div class="col-8">
+          <select [(ngModel)]="requestParam.Address_Details.Country" class="form-control">
+            <option *ngFor="let country of commonService.allCountryList" [ngValue]="country">{{country}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-4 control-label">State</label>
+        <div class="col-8">
+          <input type="text" [(ngModel)]="requestParam.Address_Details.State" class="form-control" placeholder="State">
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-4 control-label">District</label>
+        <div class="col-8">
+          <input type="text" [(ngModel)]="requestParam.Address_Details.District" class="form-control"
+            placeholder="District">
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-4 control-label">City</label>
+        <div class="col-8">
+          <select [(ngModel)]="requestParam.Address_Details.City" class="form-control">
+            <option *ngFor="let city of commonService.allCitiesList" [ngValue]="city">{{city}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-4 control-label">Zip Code</label>
+        <div class="col-8">
+          <input type="text" [(ngModel)]="requestParam.Address_Details.Zip" class="form-control" placeholder="Zip Code">
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-4 control-label">Address Type</label>
+        <div class="col-8">
+          <select [(ngModel)]="requestParam.Address_Details.Address_Type" class="form-control">
+            <option *ngFor="let type of Address_type" [ngValue]="type">{{type}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-4 control-label">Address</label>
+        <div class="col-8">
+          <!-- <input type="text" [(ngModel)]="requestParam.Address" class="form-control" placeholder="Address..."> -->
+          <textarea style="font-size: 12px !important" [(ngModel)]="requestParam.Address_Details.Address"
+            class="form-control" placeholder="Please provide your address"></textarea>
+        </div>
+      </div>
+      <div class="text-center" style="margin-top: 5%">
+        <button class="btn btn-primary" (click)="saveOrgAddressDetails()">Proceed</button>
+      </div>
+    </div>
+  </div>

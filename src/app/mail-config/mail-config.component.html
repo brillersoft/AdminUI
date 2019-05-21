@@ -1,0 +1,89 @@
+<h1>Mail Configuration</h1>
+<div class="box">
+  <div>
+    <div class="add-hirearchy bottom-line">
+      <h3 class="hirearchy-box-title">Add Client Details</h3>
+      <div class="select-all-toggle">
+        <label class="switch"><input type="checkbox" [checked]="licenceType === true" (click)="chooseAllClients()"
+            [disabled]="licenceType === false"><span class="slider round"></span></label>
+        <label style="margin-left: 4%">Select All Clients</label>
+      </div>
+    </div>
+  </div>
+  <div class="box-body submit-server-config" *ngIf="selectAllClients === false">
+    <div class="row" style="width: 100%">
+
+      <div class="col-4 server-config-section">
+        <div class="row">
+          <label class="col-4 control-label">Work Location</label>
+          <div class="col-8">
+            <select [(ngModel)]="clientLocation" class="form-control">
+              <option *ngFor="let location of commonService.businessEntitiesDetails" [ngValue]="location['Entity_Id']">
+                {{location.Address_Details['Address']}},{{location.Address_Details['City']}},{{location.Address_Details['State']}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-4 control-label">First Name</label>
+          <div class="col-8">
+            <input type="text" [(ngModel)]="requestParam.Client" class="form-control" placeholder="First Name">
+          </div>
+        </div>
+        <div class="row" class="text-right">
+          <button class="btn btn-primary" (click)="saveMailId()">Save</button>
+        </div>
+      </div>
+      <div class="col-4 server-config-section">
+        <div class="row">
+          <label class="col-4 control-label">Domain Type</label>
+          <div class="col-8">
+            <select [(ngModel)]="requestParam.Domain_Type" class="form-control">
+              <option *ngFor="let domain of Domain_Types" [ngValue]="domain">{{domain}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-4 control-label">Middle Name</label>
+          <div class="col-8">
+            <input type="text" [(ngModel)]="requestParam.Email_Id" class="form-control" placeholder="Middle Name">
+          </div>
+        </div>
+      </div>
+      <div class="col-4 server-config-section">
+        <div class="row">
+          <label class="col-4 control-label">Last Name</label>
+          <div class="col-8">
+            <input type="text" [(ngModel)]="requestParam.Email_Id" class="form-control" placeholder="Last Name">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="box">
+  <div>
+    <div class="add-hirearchy bottom-line">
+      <h3 class="hirearchy-box-title">Add A New User Details</h3>
+      <div class="select-all-toggle">
+        <label class="switch"><input type="checkbox" [checked]="licenceType === true" (click)="chooseAllEmployeess()"
+            [disabled]="licenceType === false"><span class="slider round"></span></label>
+        <label style="margin-left: 4%">Select All Employees</label>
+
+      </div>
+    </div>
+  </div>
+  <div class="box-body submit-server-config" *ngIf="selectAllEmployees === false">
+    <div class="row" style="width: 100%">
+      <div class="col-4 server-config-section">
+        <div class="row">
+          <label class="col-4 control-label">Email Id</label>
+          <div class="col-8">
+            <input type="text" [(ngModel)]="requestParam.Email_Id" class="form-control" placeholder="Email Domain Name">
+          </div>
+        </div>
+        <div class="row" class="text-right">
+          <button class="btn btn-primary" (click)="saveMailId()">Save</button>
+        </div>
+      </div>
+    </div>

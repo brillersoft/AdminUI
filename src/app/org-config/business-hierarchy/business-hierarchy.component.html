@@ -1,0 +1,311 @@
+<h1>Business Hierarchy</h1>
+<div class="box">
+    <div>
+        <div class="add-hirearchy bottom-line">
+            <h3 class="hirearchy-box-title">Add New Business Unit</h3>
+            <div class="add-icon" (click)="addNew('bUnit')"><i class="fas fa-plus"></i>Add New</div>
+        </div>
+    </div>
+
+    <div *ngFor="let bUnit of allBusinessUnit; let last = last; let bUnitIndex = index">
+        <div class="box-body submit-server-config">
+            <div class="row">
+                <div class="col-6 server-config-section">
+                    <div class="row">
+                        <label class="col-4 control-label">Business Unit Name</label>
+                        <div class="col-8">
+                            <input type="text" [(ngModel)]="allBusinessUnit[bUnitIndex].unit_name" class="form-control"
+                                placeholder="Business Unit Name">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-4 control-label">Business Unit Desc</label>
+                        <div class="col-8">
+                            <input type="text" [(ngModel)]="allBusinessUnit[bUnitIndex].unit_desc" class="form-control"
+                                placeholder="Business Unit Desc">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-4 control-label">Business Unit Code</label>
+                        <div [ngClass]="last?'col-5':'col-8'">
+                            <input type="text" [(ngModel)]="allBusinessUnit[bUnitIndex].unit_code" class="form-control"
+                                placeholder="Business Unit Code">
+                        </div>
+
+                        <div class="col-3" style="text-align: end" *ngIf="last">
+                            <button class="btn btn-primary" (click)="updateHierarchy('bUnit')"
+                                [disabled]="showDivision[1] === 1">Add Division</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-6  server-config-section">
+                    <div title="delete" class="row delete-icon-row">
+                        <div class="delete-icon" (click)="delete('bUnit', bUnitIndex)"><i class="far fa-trash-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="box" *ngIf="showDivision[1] === 1">
+        <div>
+            <div class="add-hirearchy bottom-line" (click)="addNew('division')">
+                <h3 class="hirearchy-box-title">Add New Business Division</h3>
+                <div class="add-icon"><i class="fas fa-plus"></i>Add New</div>
+            </div>
+        </div>
+
+        <div *ngFor="let division of allBusinessDivision; let isLastDivison = last; let bDivisionIndex = index">
+            <div class="box-body submit-server-config">
+                <div class="row">
+                    <div class="col-6 server-config-section">
+                        <div class="row">
+                            <label class="col-4 control-label">Select Business Unit</label>
+                            <div class="col-8">
+                                <select [(ngModel)]="allBusinessDivision[bDivisionIndex].b_unit_code"
+                                    class="form-control">
+                                    <option *ngFor="let bunit of allBusinessUnit" [ngValue]="bunit.unit_code">
+                                        {{bunit.unit_name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-4 control-label">Business Division Name</label>
+                            <div class="col-8">
+                                <input type="text" [(ngModel)]="allBusinessDivision[bDivisionIndex].unit_name"
+                                    class="form-control" placeholder="Business Division Name">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-4 control-label">Business Division Desc</label>
+                            <div class="col-8">
+                                <input type="text" [(ngModel)]="allBusinessDivision[bDivisionIndex].unit_desc"
+                                    class="form-control" placeholder="Business Division Desc">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-4 control-label">Business Division Code</label>
+                            <div [ngClass]="isLastDivison?'col-5':'col-8'">
+                                <input type="text" [(ngModel)]="allBusinessDivision[bDivisionIndex].unit_code"
+                                    class="form-control" placeholder="Business Division Code">
+                            </div>
+
+                            <div class="col-3" style="text-align: end" *ngIf="isLastDivison">
+                                <button class="btn btn-primary" (click)="updateHierarchy('division')"
+                                    [disabled]="showDivision[2] === 1">Account</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-6  server-config-section">
+                        <div title="delete" class="row delete-icon-row">
+                            <div class="delete-icon" (click)="delete('division', bDivisionIndex)"><i
+                                    class="far fa-trash-alt"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box" *ngIf="showDivision[2] === 1">
+            <div>
+                <div class="add-hirearchy bottom-line" (click)="addNew('account')">
+                    <h3 class="hirearchy-box-title">Add New Account</h3>
+                    <div class="add-icon"><i class="fas fa-plus"></i>Add New</div>
+                </div>
+            </div>
+
+            <div *ngFor="let account of allAccounts; let lastAccount = last; let accountIndex = index">
+                <div class="box-body submit-server-config">
+                    <div class="row">
+                        <div class="col-6 server-config-section">
+                            <div class="row">
+                                <label class="col-4 control-label">Select Business Division</label>
+                                <div class="col-8">
+                                    <select [(ngModel)]="allAccounts[accountIndex].division_unit_code"
+                                        class="form-control">
+                                        <option *ngFor="let bDivision of allBusinessDivision"
+                                            [ngValue]="bDivision.unit_code">
+                                            {{bDivision.unit_name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-4 control-label">Account Name</label>
+                                <div class="col-8">
+                                    <input type="text" [(ngModel)]="allAccounts[accountIndex].unit_name"
+                                        class="form-control" placeholder="Account Name">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-4 control-label">Account Desc</label>
+                                <div class="col-8">
+                                    <input type="text" [(ngModel)]="allAccounts[accountIndex].unit_desc"
+                                        class="form-control" placeholder="Account Desc">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-4 control-label">Account Code</label>
+                                <div [ngClass]="lastAccount?'col-5':'col-8'">
+                                    <input type="text" [(ngModel)]="allAccounts[accountIndex].unit_code"
+                                        class="form-control" placeholder="Account Code">
+                                </div>
+
+                                <div class="col-3" style="text-align: end" *ngIf="lastAccount">
+                                    <button class="btn btn-primary" (click)="updateHierarchy('account')"
+                                        [disabled]="showDivision[3] === 1">Add Group</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-6  server-config-section">
+                            <div title="delete" class="row delete-icon-row">
+                                <div class="delete-icon" (click)="delete('account', accountIndex)"><i
+                                        class="far fa-trash-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box" *ngIf="showDivision[3] === 1">
+            <div>
+                <div class="add-hirearchy bottom-line" (click)="addNew('bGroup')">
+                    <h3 class="hirearchy-box-title">Add New Business Group</h3>
+                    <div class="add-icon"><i class="fas fa-plus"></i>Add New</div>
+                </div>
+            </div>
+
+            <div *ngFor="let item of allBusinessGroup; let lastBGroup = last; let groupIndex = index">
+                <div class="box-body submit-server-config">
+                    <div class="row">
+                        <div class="col-6 server-config-section">
+                            <div class="row">
+                                <label class="col-4 control-label">Select Account</label>
+                                <div class="col-8">
+                                    <select [(ngModel)]="allBusinessGroup[groupIndex].accounts_unit_code"
+                                        class="form-control">
+                                        <option *ngFor="let account of allAccounts" [ngValue]="account.unit_code">
+                                            {{account.unit_name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-4 control-label">Business Group Name</label>
+                                <div class="col-8">
+                                    <input type="text" [(ngModel)]="allBusinessGroup[groupIndex].unit_name"
+                                        class="form-control" placeholder="Business Group Name">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-4 control-label">Business Group Desc</label>
+                                <div class="col-8">
+                                    <input type="text" [(ngModel)]="allBusinessGroup[groupIndex].unit_desc"
+                                        class="form-control" placeholder="Business Group Desc">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-4 control-label">Business Group Code</label>
+                                <div [ngClass]="lastBGroup?'col-5':'col-8'">
+                                    <input type="text" [(ngModel)]="allBusinessGroup[groupIndex].unit_code"
+                                        class="form-control" placeholder="Business Group Code">
+                                </div>
+
+                                <div class="col-3" style="text-align: end" *ngIf="lastBGroup">
+                                    <button class="btn btn-primary" (click)="showDivision[4] = 1">Add Team</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-6  server-config-section">
+                            <div title="delete" class="row delete-icon-row">
+                                <div class="delete-icon" (click)="delete('bGroup', groupIndex)"><i
+                                        class="far fa-trash-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="box" *ngIf="showDivision[4] === 1">
+            <div>
+                <div class="add-hirearchy bottom-line" (click)="addNew('team')">
+                    <h3 class="hirearchy-box-title">Add New Team</h3>
+                    <diV class="add-icon"><i class="fas fa-plus"></i>Add New</diV>
+                </div>
+            </div>
+
+            <div *ngFor="let team of allTeams; let last = last; let teamIndex = index">
+                <div class="box-body submit-server-config">
+                    <div class="row">
+                        <div class="col-6 server-config-section">
+                            <div class="row">
+                                <label class="col-4 control-label">Select Business Group</label>
+                                <div class="col-8">
+                                    <select [(ngModel)]="allTeams[teamIndex].b_group_unit_code" class="form-control">
+                                        <option *ngFor="let bGroup of allBusinessGroup" [ngValue]="bGroup.unit_code">
+                                            {{bGroup.unit_name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-4 control-label">Team Name</label>
+                                <div class="col-8">
+                                    <input type="text" [(ngModel)]="allTeams[teamIndex].unit_name" class="form-control"
+                                        placeholder="Team Name">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-4 control-label">Team Desc</label>
+                                <div class="col-8">
+                                    <input type="text" [(ngModel)]="allTeams[teamIndex].unit_desc" class="form-control"
+                                        placeholder="Team Desc">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-4 control-label">Team Code</label>
+                                <div [ngClass]="last?'col-6':'col-8'">
+                                    <input type="text" [(ngModel)]="allTeams[teamIndex].unit_code" class="form-control"
+                                        placeholder="Team Code">
+                                </div>
+
+                                <div class="col-1" style="text-align: end" *ngIf="last">
+                                    <button class="btn btn-primary" (click)="saveBusinessUnitDetails()">Save</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-6  server-config-section">
+                            <div title="delete" class="row delete-icon-row">
+                                <div class="delete-icon" (click)="delete('team', teamIndex)"><i
+                                        class="far fa-trash-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

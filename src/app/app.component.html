@@ -1,0 +1,11 @@
+<ngx-spinner bdOpacity=0 bdColor="#3d8dbc" size="medium" color="#ffffff" type="ball-circus" [fullScreen]="true">
+  <p style="color: white"> Please Wait... </p>
+</ngx-spinner>
+<app-scroll-top></app-scroll-top>
+<div [ngClass]="{'openNav':_CommonService.toggleNav}">
+  <app-header></app-header>
+  <app-side-nav></app-side-nav>
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

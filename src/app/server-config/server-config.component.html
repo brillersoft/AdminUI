@@ -1,0 +1,94 @@
+<h1>Server Configuration</h1>
+<div class="box">
+  <h3 class="box-title">Add a server configuration</h3>
+  <div class="box-body submit-server-config">
+    <div class="row">
+      <div class="col-6 server-config-section">
+        <div class="row">
+          <label class="col-4 control-label">Email Domain Name</label>
+          <div class="col-8">
+            <input type="text" [(ngModel)]="requestParam.Email_Domain_Name" class="form-control"
+              placeholder="Email Domain Name">
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-4 control-label">User Name</label>
+          <div class="col-8">
+            <input type="text" [(ngModel)]="requestParam.User_Name" class="form-control" placeholder="User Name">
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-4 control-label">Domain Type</label>
+          <div class="col-8">
+            <select [(ngModel)]="requestParam.Domain_Type" class="form-control">
+              <option *ngFor="let domain of Domain_Types" [ngValue]="domain">{{domain}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" *ngIf="requestParam.Domain_Type == 'OnCloud'">
+          <label class="col-4 control-label">Client Id</label>
+          <div class="col-3">
+            <input type="text" [(ngModel)]="requestParam.Client_Id" class="form-control" placeholder="Client Id">
+
+          </div>
+          <label class="col-2 control-label">Secreat Key</label>
+          <div class="col-3">
+            <input type="text" [(ngModel)]="requestParam.Secreat_Key" class="form-control" placeholder="Secreat Key">
+
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-4 control-label">Exchange version</label>
+          <div class="col-8">
+            <input type="text" [(ngModel)]="requestParam.Exchange_version" class="form-control"
+              placeholder="Exchange version">
+          </div>
+        </div>
+      </div>
+      <div class="col-6  server-config-section">
+        <div class="row">
+          <label class="col-4 control-label">Service Provider</label>
+          <div class="col-8">
+            <select [(ngModel)]="requestParam.Service_Providers" class="form-control">
+              <option *ngFor="let sp of Service_Providers" [ngValue]="sp">{{sp}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-4 control-label">Password</label>
+          <div class="col-8">
+            <input type="text" [(ngModel)]="requestParam.Pwd" class="form-control" placeholder="Password">
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-4 control-label">Server Url</label>
+          <div class="col-8">
+            <input type="text" [(ngModel)]="requestParam.Server_Url" class="form-control" placeholder="Server Url">
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-4 control-label" *ngIf="requestParam.Domain_Type == 'OnCloud'">Graph API URL</label>
+          <div class="col-5" *ngIf="requestParam.Domain_Type == 'OnCloud'">
+            <input type="text" [(ngModel)]="requestParam.Graph_api_url" class="form-control"
+              placeholder="Graph API URL">
+
+          </div>
+          <div class="text-right"
+            [ngClass]="{'col-3':requestParam.Domain_Type == 'OnCloud','col-12':requestParam.Domain_Type != 'OnCloud'}">
+            <button class="btn btn-primary" (click)="saveOnServer()">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="box" style="margin-bottom: 0">
+  <h3 class="box-title">Configuration History</h3>
+  <div class="box-body">
+    <ag-grid-angular style="width:100%; height:210px;" class="ag-theme-balham" [rowData]="allConfig"
+      [columnDefs]="columnDefs">
+    </ag-grid-angular>
+  </div>
+
+
+</div>

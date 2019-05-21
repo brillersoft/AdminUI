@@ -1,0 +1,86 @@
+<h1>Job Scheduler</h1>
+<div class="jobs">
+  <div class="box">
+    <h3 class="box-title">Add a Job <span class="float-right"><button class="btn btn-sm btn-primary btn-submit"
+          (click)="runJob()">Run Job</button></span></h3>
+    <div class="box-body submit-server-config">
+      <div class="row">
+        <div class="col-6 server-config-section">
+          <div class="row">
+            <label class="col-4 control-label">Job Name</label>
+            <div class="col-8">
+              <input type="text" [(ngModel)]="requestParam.Job_Name" required class="form-control"
+                placeholder="Job Name">
+            </div>
+          </div>
+        </div>
+        <div class="col-6 server-config-section">
+          <div class="row">
+            <label class="col-4 control-label">Job Group</label>
+            <div class="col-8">
+              <input type="text" [(ngModel)]="requestParam.Job_Group" class="form-control" placeholder="Job Group">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 server-config-section">
+          <div class="row">
+            <label class="col-4 control-label">Job type</label>
+            <div class="col-8 text-left mt-2">
+              <input type="radio" value="false" name="jobType" [(ngModel)]="requestParam.Is_Cron_Job"
+                (click)="requestParam.Cron_Expres =''" class="mr-1">Historical Job<input type="radio" name="jobType"
+                value="true" [(ngModel)]="requestParam.Is_Cron_Job"
+                (click)="requestParam.Cron_Expres =cronExpression;requestParam.From_date = '';requestParam.End_date=''"
+                class="mr-1 ml-4">Schedule Job
+            </div>
+          </div>
+        </div>
+        <div class="col-6 server-config-section">
+          <div class="row">
+            <label class="col-4 control-label">Job Expression</label>
+            <div class="col-8">
+              <input type="text" readonly [(ngModel)]="cronExpression" class="form-control" placeholder="Job Name">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12" *ngIf="requestParam.Is_Cron_Job == 'false'">
+          <div class="row">
+            <div class="col-6">
+              <div class="row">
+                <label class="col-4 control-label">From Date</label>
+                <div class="col-5 text-left">
+                  <input [(ngModel)]="requestParam.From_date" type="datetime-local" class="form-control" />
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <label class="col-4 control-label">To Date</label>
+                <div class="col-5 text-left">
+                  <input [(ngModel)]="requestParam.End_date" type="datetime-local" class="form-control" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12" *ngIf="requestParam.Is_Cron_Job == 'true'">
+          <cron-editor [(cron)]="cronExpression" [options]="cronOptions"></cron-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="box" style="margin-bottom: 0">
+  <h3 class="box-title">All Scheduled Jobs</h3>
+  <div class="box-body">
+    <ag-grid-angular style="width:100%; height:172px;" floatingFilter="true" class="ag-theme-balham"
+      [rowData]="allConfig" [columnDefs]="columnDefs">
+    </ag-grid-angular>
+  </div>
+
+
+</div>
